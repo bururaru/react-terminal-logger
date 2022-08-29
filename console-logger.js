@@ -89,57 +89,61 @@ module.exports = {
 		if(visible.length > 0) {
 			opt = visible;
 		}
-		if(process.env.NODE_ENV === 'development') {
-			console.disableYellowBox = true;
-			if(opt.indexOf("log") !== -1) {
-				window.console.log = (...val) => {
-					let var_ = [];
-					val.map((l)=>{
-						var_.push(l)
-					})
-					fetch_("log", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
-				}
-			}
-			if(opt.indexOf("error") !== -1) {
-				window.console.error = (...val) => {
-					let var_ = [];
-					val.map((l)=>{
-						var_.push(l)
-					})
-					fetch_("error", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
-				}
-			}
-			if(opt.indexOf("info") !== -1) {
-				window.console.info = (...val) => {
-					let var_ = [];
-					val.map((l)=>{
-						var_.push(l)
-					})
-					fetch_("info", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
-				}
-			}
-			if(opt.indexOf("warn") !== -1) {
-				window.console.warn = (...val) => {
-					let var_ = [];
-					val.map((l)=>{
-						var_.push(l)
-					})
-					fetch_("warn", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
-				}
-			}
-			if(opt.indexOf("logr") !== -1) {
-				window.logr = (...val) => {
-					let var_ = [];
-					val.map((l)=>{
-						var_.push(l)
-					})
-					fetch_("logr", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
-				}
-			}
-		} else {
-			window.logr = (...val) => {
-				console.log(...val)
+
+		// make log file in any environment except development
+		console.disableYellowBox = true;
+		if(opt.indexOf("log") !== -1) {
+			window.console.log = (...val) => {
+				let var_ = [];
+				val.map((l)=>{
+					var_.push(l)
+				})
+				fetch_("log", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
 			}
 		}
+		if(opt.indexOf("error") !== -1) {
+			window.console.error = (...val) => {
+				let var_ = [];
+				val.map((l)=>{
+					var_.push(l)
+				})
+				fetch_("error", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
+			}
+		}
+		if(opt.indexOf("info") !== -1) {
+			window.console.info = (...val) => {
+				let var_ = [];
+				val.map((l)=>{
+					var_.push(l)
+				})
+				fetch_("info", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
+			}
+		}
+		if(opt.indexOf("warn") !== -1) {
+			window.console.warn = (...val) => {
+				let var_ = [];
+				val.map((l)=>{
+					var_.push(l)
+				})
+				fetch_("warn", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
+			}
+		}
+		if(opt.indexOf("logr") !== -1) {
+			window.logr = (...val) => {
+				let var_ = [];
+				val.map((l)=>{
+					var_.push(l)
+				})
+				fetch_("logr", var_, new Error().stack.split('\n')[1].split('@')[0], save_logs);
+			}
+		}
+
+		// if(process.env.NODE_ENV === 'development') {
+		//
+		// } else {
+		// 	window.logr = (...val) => {
+		// 		console.log(...val)
+		// 	}
+		// }
 	}
 }
